@@ -6,7 +6,6 @@ import guru.springframework.sfgdi.datasource.FakeDataSource;
 import guru.springframework.sfgdi.repositories.EnglishGreetingRepository;
 import guru.springframework.sfgdi.repositories.EnglishGreetingRepositoryImpl;
 import guru.springframework.sfgdi.services.*;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 
 //@PropertySource("classpath:datasource.properties") // to use external file
@@ -14,14 +13,24 @@ import org.springframework.context.annotation.*;
 @Configuration
 public class GreetingServiceConfig {
 
-    @Bean                         // to link to file.properties fields
-    FakeDataSource fakeDataSource(@Value("${guru.username}") String username,
-                                  @Value("${guru.password}") String password,
-                                  @Value("${guru.jdbcurl}") String jdbcurl) {
+//    @Bean                         // to link to file.properties fields
+//    FakeDataSource fakeDataSource(@Value("${guru.username}") String username,
+//                                  @Value("${guru.password}") String password,
+//                                  @Value("${guru.jdbcurl}") String jdbcurl) {
+//        FakeDataSource fakeDataSource = new FakeDataSource();
+//        fakeDataSource.setUsername(username);
+//        fakeDataSource.setPassword(password);
+//        fakeDataSource.setJdbcurl(jdbcurl);
+//
+//        return fakeDataSource;
+//    }
+
+    @Bean
+    FakeDataSource fakeDataSource(SfgConfiguration sfgConfiguration) {
         FakeDataSource fakeDataSource = new FakeDataSource();
-        fakeDataSource.setUsername(username);
-        fakeDataSource.setPassword(password);
-        fakeDataSource.setJdbcurl(jdbcurl);
+        fakeDataSource.setUsername(sfgConfiguration.getUsername());
+        fakeDataSource.setPassword(sfgConfiguration.getPassword());
+        fakeDataSource.setJdbcurl(sfgConfiguration.getJdbcurl());
 
         return fakeDataSource;
     }
