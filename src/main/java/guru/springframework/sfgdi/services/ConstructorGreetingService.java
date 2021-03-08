@@ -1,8 +1,6 @@
 package guru.springframework.sfgdi.services;
 
-import org.springframework.stereotype.Service;
-
-@Service
+//@Service // To use external config -> Java class config
 public class ConstructorGreetingService implements GreetingService {
     @Override
     public String sayGreeting() {
